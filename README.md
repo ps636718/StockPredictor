@@ -101,25 +101,19 @@ StockPredictor/
 
 ## 🔧 Installation
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/YOURUSERNAME/StockPredictor.git
-cd StockPredictor
-```
-
-### 2. Create Virtual Environment
+### 1. Create Virtual Environment
 ```bash
 python -m venv .venv
 .venv\Scripts\activate    # Windows
 source .venv/bin/activate # Mac/Linux
 ```
 
-### 3. Install Dependencies
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the App
+### 3. Run the App
 ```bash
 streamlit run app.py
 ```
