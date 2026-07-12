@@ -1,13 +1,13 @@
 <div align="center">
 
 ```
-╔═══════════════════════════════════════════════════════════╗
-║                                                             ║
-║             S T O C K   P R I C E   P R E D I C T O R      ║
-║                                                             ║
-║        Multi-Ticker Forecasting Engine  ·  XGBoost         ║
-║                                                             ║
-╚═══════════════════════════════════════════════════════════╝
+                                ╔═══════════════════════════════════════════════════════════╗
+                                ║                                                             ║
+                                ║             S T O C K   P R I C E   P R E D I C T O R      ║
+                                ║                                                             ║
+                                ║        Multi-Ticker Forecasting Engine  ·  XGBoost         ║
+                                ║                                                             ║
+                                ╚═══════════════════════════════════════════════════════════╝
 ```
 
 ### Forecasting NSE Stock Prices with Technical Indicators + Ensemble Gradient Boosting
