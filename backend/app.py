@@ -534,6 +534,14 @@ def analyze_report(body: Dict[str, Any] = Body(...)):
 if os.path.exists(FRONTEND_DIR):
     app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
+    @app.get("/styles.css")
+    def serve_styles():
+        return FileResponse(os.path.join(FRONTEND_DIR, "styles.css"))
+
+    @app.get("/app.js")
+    def serve_app_js():
+        return FileResponse(os.path.join(FRONTEND_DIR, "app.js"))
+
     @app.get("/")
     def serve_index():
         return FileResponse(os.path.join(FRONTEND_DIR, "index.html"))

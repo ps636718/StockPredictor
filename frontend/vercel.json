@@ -2,6 +2,10 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/static/:path*",
+      "destination": "/:path*"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://stockai-backend-uc9l.onrender.com/api/:path*"
     }
