@@ -4,8 +4,8 @@
  * and AI multi-horizon forecast rendering.
  */
 
-// Production Backend API Base URL — change this to your deployed Render URL after deployment
-const PRODUCTION_API_URL = "https://stockai-backend.onrender.com";
+// Production Backend API Base URL — points to live deployed Render backend
+const PRODUCTION_API_URL = "https://stockai-backend-uc9l.onrender.com";
 
 // Smart environment resolver: auto-connects to local backend when testing locally,
 // and routes to PRODUCTION_API_URL when hosted live on Vercel or custom domain.
