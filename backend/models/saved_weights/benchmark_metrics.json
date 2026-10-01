@@ -1,0 +1,58 @@
+{
+  "days": ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+
+  "walk_forward_validation": {
+    "method": "Rolling 750-day train / 21-day test / 21-day step across 19 NSE stocks (2019-2024)",
+    "total_windows": 1026,
+    "directional_accuracy": {
+      "day_1": 0.7067,
+      "day_2": 0.6463,
+      "day_3": 0.6113,
+      "day_4": 0.5928,
+      "day_5": 0.5760,
+      "day_6": 0.5714,
+      "day_7": 0.5707
+    },
+    "pooled_model_r2":  [0.9763, 0.9568, 0.9367, 0.9162, 0.8948, 0.8748, 0.8564],
+    "pooled_naive_r2":  [0.9845, 0.9698, 0.9551, 0.9407, 0.9261, 0.9123, 0.8990],
+    "pooled_model_mae": [1.4037, 1.9884, 2.4656, 2.8811, 3.2442, 3.5539, 3.8227],
+    "windows_failing_55pct_gate": "2232 / 7182",
+    "key_finding": "Walk-forward R2 is lower than naive persistence baseline for all 7 horizons. The model's genuine edge is directional classification (70.67% Day-1) not price-level prediction."
+  },
+
+  "static_split": {
+    "method": "Train < 2024-01-01, Test >= 2024-01-01 (23465 train / 12520 test samples)",
+    "naive": {
+      "r2":  [0.9782, 0.9591, 0.9412, 0.9238, 0.9065, 0.8894, 0.8726],
+      "mae": [1.42, 2.05, 2.58, 3.01, 3.39, 3.74, 4.08]
+    },
+    "xgboost": {
+      "r2":  [0.9856, 0.9730, 0.9603, 0.9484, 0.9359, 0.9245, 0.9123],
+      "mae": [1.18, 1.62, 2.01, 2.38, 2.71, 3.02, 3.31]
+    },
+    "lstm": {
+      "r2":  [0.9812, 0.9689, 0.9575, 0.9441, 0.9308, 0.9165, 0.9024],
+      "mae": [1.29, 1.74, 2.14, 2.51, 2.85, 3.16, 3.46]
+    },
+    "gru": {
+      "r2":  [0.9798, 0.9671, 0.9554, 0.9420, 0.9285, 0.9142, 0.9001],
+      "mae": [1.33, 1.79, 2.19, 2.57, 2.92, 3.24, 3.54]
+    }
+  },
+
+  "summary": {
+    "best_overall": "XGBoost",
+    "best_directional": "XGBoost (70.67% Day-1 via walk-forward)",
+    "xgb_avg_r2_static": 0.9486,
+    "lstm_avg_r2_static": 0.9431,
+    "gru_avg_r2_static": 0.9410,
+    "naive_avg_r2_static": 0.9244,
+    "xgb_r2_improvement_over_naive": "+2.42% (static split)",
+    "validation_integrity": "Walk-forward validation with 1,026 independent forward windows; Optuna tuning was performed on static split only and NOT used inside walk-forward loop",
+    "key_insight": "Rolling price and volume normalization (252-day baseline) eliminated non-stationarity drift across diverse Indian stocks. The model's primary value is directional accuracy (70.67% Day-1), not absolute price prediction — in line with efficient market hypothesis expectations.",
+    "honest_limitation": "Walk-forward R2 is consistently lower than the naive persistence baseline. High static-split R2 (>0.98) reflects the non-stationary nature of price levels, not genuine predictive power over a random walk."
+  },
+
+  "last_trained_timestamp": "2026-09-30 09:57:00",
+  "model_version": "v2.5-wfv"
+}

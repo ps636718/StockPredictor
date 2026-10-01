@@ -1,0 +1,65 @@
+# ==============================================================================
+# Git Ignore — AlphaTrade AI
+# ==============================================================================
+
+# Environment files & Secrets (CRITICAL: never commit actual keys)
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# Python bytecode & caching
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Testing & Linting
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# IDE & Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Executables & Local tunnel tools
+cloudflared.exe
+*.exe
+
+# Logs
+*.log
