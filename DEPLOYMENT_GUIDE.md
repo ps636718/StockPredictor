@@ -101,9 +101,9 @@ Isko solve karne ke liye **cron-job.org** (Free) use karein:
 Aap apne resume mein project ko is tarah showcase kar sakte hain:
 
 ```markdown
-**AlphaTrade AI — Stock Prediction & Financial Terminal**
-[Live Demo: https://stock-market-terminal.onrender.com] | [GitHub: github.com/your-username/stock-market]
-• Architected a multi-horizon stock forecasting terminal using FastAPI, XGBoost, and LSTM neural networks.
-• Implemented 252-day rolling normalization pipeline achieving 70.67% Day-1 directional accuracy across 1,026 walk-forward validation windows.
-• Built IPO intelligence engine providing automated subscription demand scoring, GMP analysis, and valuation benchmarks.
+**AlphaTrade AI - Stock Prediction and Financial Terminal**
+[Live Demo: https://stockpredictor-frontend.vercel.app] | [Live API: https://stockai-backend-uc9l.onrender.com] | [GitHub: https://github.com/ps636718/StockPredictor]
+- Architected a multi-horizon stock forecasting terminal using FastAPI, XGBoost, and LSTM neural networks.
+- Implemented 252-day rolling normalization pipeline achieving 70.67% Day-1 directional accuracy across 1,026 walk-forward validation windows.
+- Built IPO intelligence engine providing automated subscription demand scoring, GMP analysis, and valuation benchmarks.
 ```

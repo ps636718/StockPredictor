@@ -1,8 +1,10 @@
-# 📈 AlphaTrade AI — Stock Prediction, IPO Intelligence & Financial Research Platform
+# AlphaTrade AI - Stock Prediction, IPO Intelligence and Financial Research Platform
+
+[Live Demo: https://stockpredictor-frontend.vercel.app](https://stockpredictor-frontend.vercel.app) | [Live API: https://stockai-backend-uc9l.onrender.com](https://stockai-backend-uc9l.onrender.com) | [GitHub: https://github.com/ps636718/StockPredictor](https://github.com/ps636718/StockPredictor)
 
 A comprehensive Full-Stack AI-Powered Financial Intelligence Platform featuring **7-Day Multi-Horizon Stock Forecasting** (XGBoost, LSTM, GRU), **IPO Analysis Engine**, **Market Sentiment Scoring**, and **Financial Report Assistant**.
 
-> **Academic Validation**: 1,026-window walk-forward validation across 19 NSE equities (2019–2024) achieving **70.67% Day-1 directional accuracy** — honestly benchmarked against the naive persistence baseline.
+> **Academic Validation**: 1,026-window walk-forward validation across 19 NSE equities (2019-2024) achieving **70.67% Day-1 directional accuracy** - honestly benchmarked against the naive persistence baseline.
 
 ---
 
@@ -152,48 +154,42 @@ Follow these exact steps to deploy the terminal live on the web so anyone (recru
    | Key | Value | Description |
    | :--- | :--- | :--- |
    | `GROQ_API_KEY` | `gsk_...` | Your API key from [Groq Console](https://console.groq.com/keys) |
-   | `FRONTEND_URL` | `https://your-stockai-frontend.vercel.app` | Your deployed Vercel domain (or `*` during first build) |
+   | `FRONTEND_URL` | `https://stockpredictor-frontend.vercel.app` | Your deployed Vercel domain (or `*` during first build) |
    | `ALPHATRADE_DEMO_MODE` | `0` | `0` for live market data via yfinance |
    | `PYTHON_VERSION` | `3.11.8` | Recommended Python version |
-5. Click **Create Web Service**. Wait 2–3 minutes for build completion.
-6. Note down your backend URL (e.g., `https://stockai-backend.onrender.com`).
-   - Test it by visiting: `https://stockai-backend.onrender.com/health`
+5. Click **Create Web Service**. Wait 2-3 minutes for build completion.
+6. Note down your backend URL:
+   - Live URL: `https://stockai-backend-uc9l.onrender.com`
+   - Test it by visiting: `https://stockai-backend-uc9l.onrender.com/health`
    - You should see: `{"status":"healthy","version":"2.5.0",...}`
 
 ---
 
 ### Step 3: Deploy Frontend on Vercel
 1. Sign in to [Vercel.com](https://vercel.com) using your GitHub account.
-2. Click **Add New...** → **Project**.
-3. Import your GitHub repository.
+2. Click **Add New...** -> **Project**.
+3. Import your GitHub repository (`StockPredictor`).
 4. In the configuration screen:
-   - **Project Name**: `stockai-terminal`
+   - **Project Name**: `stockpredictor-frontend`
    - **Framework Preset**: `Other`
    - **Root Directory**: Click *Edit* and select `frontend`
 5. Click **Deploy**. Vercel will deploy your static frontend in seconds.
-6. Note down your frontend URL (e.g., `https://stockai-terminal.vercel.app`).
+6. Live URL: `https://stockpredictor-frontend.vercel.app`
 
 ---
 
-### Step 4: Link Frontend to Live Backend & Update CORS
-1. In `frontend/app.js`, update line 8 with your live Render backend URL:
+### Step 4: Link Frontend to Live Backend and Update CORS
+1. In `frontend/app.js`, line 5 points to your live Render backend URL:
    ```javascript
-   const API_BASE_URL = "https://stockai-backend.onrender.com";
+   const PRODUCTION_API_URL = "https://stockai-backend-uc9l.onrender.com";
    ```
-2. Commit and push the update to GitHub:
-   ```bash
-   git add frontend/app.js
-   git commit -m "Point API_BASE_URL to live Render backend"
-   git push origin main
-   ```
-   *(Vercel automatically detects the commit and redeploys the frontend in ~15 seconds).*
-3. In your **Render Dashboard** → **Environment**, ensure `FRONTEND_URL` matches your exact Vercel URL (e.g., `https://stockai-terminal.vercel.app`). Save changes.
+2. In your **Render Dashboard** -> **Environment**, ensure `FRONTEND_URL` matches your exact Vercel URL (`https://stockpredictor-frontend.vercel.app`). Save changes.
 
 ---
 
 ### Step 5: How to Verify from a Different Device
 1. Open your smartphone, tablet, or another computer (or an Incognito window).
-2. Navigate to your live Vercel URL: `https://stockai-terminal.vercel.app`.
+2. Navigate to your live Vercel URL: `https://stockpredictor-frontend.vercel.app`.
 3. Verify that:
    - Live ticker cards load with real NSE/NASDAQ quotes.
    - Interactive Chart.js price charts render with technical indicators (SMA, Bollinger).
@@ -205,12 +201,15 @@ Follow these exact steps to deploy the terminal live on the web so anyone (recru
 ---
 
 ### Step 6: Prevent Free-Tier Backend Sleeping (24/7 Awake Setup)
-Render free-tier web services spin down after 15 minutes of inactivity, causing a 30–50 second cold start on the next visit. Use a free external cron ping service to keep it active 24/7:
+Render free-tier web services spin down after 15 minutes of inactivity, causing a 30-50 second cold start on the next visit. Use a free external cron ping service to keep it active 24/7:
 1. Create a free account on [cron-job.org](https://cron-job.org).
-2. Go to **Cronjobs** → **Create Cronjob**:
+2. Go to **Cronjobs** -> **Create Cronjob**:
    - **Title**: `Keep StockAI Backend Awake`
-   - **URL**: `https://stockai-backend.onrender.com/health`
+   - **URL**: `https://stockai-backend-uc9l.onrender.com/health`
    - **Execution Schedule**: Every `10 minutes` (or `14 minutes`)
+   - **Request Method**: `GET`
+3. Click **Create**.
+4. **Outcome**: The lightweight `/health` endpoint is pinged every 10 minutes, keeping your container warm so visitors experience instantaneous (<1 second) response times 24/7.minutes`)
    - **Request Method**: `GET`
 3. Click **Create**.
 4. **Outcome**: The lightweight `/health` endpoint is pinged every 10 minutes, keeping your container warm so visitors experience instantaneous (<1 second) response times 24/7!
