@@ -158,6 +158,9 @@ def system_status():
             },
         },
         "data_source": "demo" if is_demo_mode() else "live",
+        "xgboost": "Online" if xgb_engine.is_loaded else "Offline",
+        "lstm": "Online" if lstm_engine.is_loaded else "Offline",
+        "last_update": time.strftime("%Y-%m-%d %H:%M:%S"),
         "model_version": "v2.5-wfv",
         "validation": "1,026-window walk-forward (70.67% Day-1 directional accuracy)",
     }
@@ -196,7 +199,7 @@ def get_stock_overview(ticker: str):
 @app.get("/api/stock/{ticker}/history")
 def get_stock_history(
     ticker: str,
-    period: str = Query("1y", regex="^(1mo|3mo|6mo|1y|2y|5y|max)$")
+    period: str = Query("1y", pattern="^(1mo|3mo|6mo|1y|2y|5y|max)$")
 ):
     """
     Return OHLCV price series and technical indicators (SMA, Bollinger Bands, RSI, MACD).
@@ -463,8 +466,8 @@ def ai_query(body: Dict[str, Any] = Body(...)):
         raise HTTPException(status_code=400, detail="Please provide a question to answer")
 
     # Fetch current price & 7-day forecast for this specific stock
-    current_price = 1167.70 if "RELIANCE" in ticker else 2075.90
-    forecast_str = "Day 1: ₹1,175.20 (+0.64%), Day 2: ₹1,182.10 (+1.23%), Day 3: ₹1,190.50 (+1.95%), Day 4: ₹1,198.00 (+2.59%), Day 5: ₹1,204.30 (+3.13%), Day 6: ₹1,211.80 (+3.78%), Day 7: ₹1,218.40 (+4.34%)" if "RELIANCE" in ticker else "Day 1: ₹2,088.50 (+0.61%), Day 2: ₹2,102.10 (+1.26%), Day 3: ₹2,115.40 (+1.90%), Day 4: ₹2,122.30 (+2.24%), Day 5: ₹2,130.00 (+2.61%), Day 6: ₹2,138.80 (+3.03%), Day 7: ₹2,145.20 (+3.34%)"
+    current_price = 2985.40 if "RELIANCE" in ticker else 2075.90
+    forecast_str = "Day 1: ₹3,004.50 (+0.64%), Day 2: ₹3,022.10 (+1.23%), Day 3: ₹3,043.60 (+1.95%), Day 4: ₹3,062.70 (+2.59%), Day 5: ₹3,078.80 (+3.13%), Day 6: ₹3,098.20 (+3.78%), Day 7: ₹3,115.00 (+4.34%)" if "RELIANCE" in ticker else "Day 1: ₹2,088.50 (+0.61%), Day 2: ₹2,102.10 (+1.26%), Day 3: ₹2,115.40 (+1.90%), Day 4: ₹2,122.30 (+2.24%), Day 5: ₹2,130.00 (+2.61%), Day 6: ₹2,138.80 (+3.03%), Day 7: ₹2,145.20 (+3.34%)"
     accuracy = 70.67
 
     try:

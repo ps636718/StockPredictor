@@ -102,6 +102,7 @@ class SentimentEngine:
             "ticker": ticker,
             "score": round(score, 2),
             "label": label,
+            "sentiment": label,
             "news_snippets": list(set(news)),  # Remove potential duplicates
             "social_buzz": buzz,
             "analyst_consensus": consensus,
@@ -113,6 +114,14 @@ class SentimentEngine:
         date_str = datetime.date.today().isoformat()
         market_val = self._get_deterministic_random(f"NIFTY50_{date_str}")
         score = (market_val * 2) - 1.0
+        
+        emoji_map = {
+            "Greed": "🚀",
+            "Optimistic": "📈",
+            "Neutral": "⚖️",
+            "Cautious": "⚠️",
+            "Fear": "📉"
+        }
         
         if score > 0.5:
             mood = "Greed"
@@ -129,6 +138,8 @@ class SentimentEngine:
             "index": "NIFTY 50",
             "mood_index": round((score + 1.0) * 50, 2), # 0 to 100 scale
             "label": mood,
+            "mood": mood,
+            "emoji": emoji_map.get(mood, "📊"),
             "date": date_str
         }
 

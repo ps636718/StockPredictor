@@ -143,14 +143,14 @@ class LSTMPredictor:
         else:
             # Calibrated sequential recurrent fallback aligned with the notebook's LSTM Day 1-7 curve
             # As recorded in notebook cell 71, LSTM tracks XGBoost closely with smooth sequential damping
-            base_curve = [f["predicted_price"] for f in xgb_baseline["forecasts"]] if xgb_baseline and "forecasts" in xgb_baseline else [
+            base_curve = [f["predicted_price"] for f in xgb_baseline["forecasts"]] if (xgb_baseline and xgb_baseline.get("forecasts")) else [
                 current_price * (1.0 + (np.sin(i / 2.0) * 0.008) + (i * 0.001)) for i in range(1, 8)
             ]
 
             # LSTM has slightly smoother inertia than decision trees
             prev_price = current_price
             for i, target_val in enumerate(base_curve, start=1):
-                # Recurrent smoothing formula: P_lstm(t) = 0.65 * P_prev + 0.35 * P_target + noise
+                # Recurrent smoothing formula: P_lstm(t) = 0.75 * P_target + 0.25 * P_prev
                 lstm_val = (0.75 * target_val) + (0.25 * prev_price)
                 pct_change = ((lstm_val - current_price) / current_price) * 100.0
 
@@ -163,12 +163,15 @@ class LSTMPredictor:
                 })
                 prev_price = lstm_val
 
+        overall_change = round(forecasts[-1]["change_pct"], 2) if forecasts else 0.0
+        target_price = forecasts[-1]["predicted_price"] if forecasts else current_price
+
         return {
             "model_name": "LSTM Neural Network",
             "current_price": round(current_price, 2),
             "forecasts": forecasts,
-            "overall_7d_change": round(forecasts[-1]["change_pct"], 2),
-            "expected_target_price": forecasts[-1]["predicted_price"],
+            "overall_7d_change": overall_change,
+            "expected_target_price": target_price,
         }
 
 

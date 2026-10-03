@@ -179,7 +179,7 @@ Follow these exact steps to deploy the terminal live on the web so anyone (recru
 ---
 
 ### Step 4: Link Frontend to Live Backend and Update CORS
-1. In `frontend/app.js`, line 5 points to your live Render backend URL:
+1. In `frontend/app.js`, line 8 points to your live Render backend URL:
    ```javascript
    const PRODUCTION_API_URL = "https://stockai-backend-uc9l.onrender.com";
    ```
@@ -207,9 +207,6 @@ Render free-tier web services spin down after 15 minutes of inactivity, causing 
    - **Title**: `Keep StockAI Backend Awake`
    - **URL**: `https://stockai-backend-uc9l.onrender.com/health`
    - **Execution Schedule**: Every `10 minutes` (or `14 minutes`)
-   - **Request Method**: `GET`
-3. Click **Create**.
-4. **Outcome**: The lightweight `/health` endpoint is pinged every 10 minutes, keeping your container warm so visitors experience instantaneous (<1 second) response times 24/7.minutes`)
    - **Request Method**: `GET`
 3. Click **Create**.
 4. **Outcome**: The lightweight `/health` endpoint is pinged every 10 minutes, keeping your container warm so visitors experience instantaneous (<1 second) response times 24/7!

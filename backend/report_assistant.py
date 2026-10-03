@@ -338,7 +338,7 @@ class ReportAssistant:
             "revenue": f"Revenue and earnings performance correlates with broader {base_name} sectoral cyclicality and macro demand.",
             "risks": f"Sector-specific regulatory developments, input cost inflation, and broader market interest rate exposure.",
             "opportunities": f"Expansion into high-margin product verticals and digital operating efficiencies.",
-            "metrics": f"Sector P/E benchmark aligned | 52-Week Range active | Volatility tracked",
+            "metrics": "Sector P/E benchmark aligned | 52-Week Range active | Volatility tracked",
             "confidence_level": "Medium"
         }
 

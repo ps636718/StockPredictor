@@ -30,6 +30,7 @@ class IPOAnalyzer:
             "Paints": 70.0,
             "Food": 60.0,
             "Consumer Tech": 45.0,
+            "Fintech": 40.0,
         }
 
         # Raw historical data (40 real Indian IPOs)
@@ -227,7 +228,7 @@ class IPOAnalyzer:
         # For upcoming without subscription data yet:
         qib = item.get("qib")
         issue_price = item.get("issue_price") or 1
-        gmp = item.get("gmp") or 0
+        gmp = item.get("gmp") if item.get("gmp") is not None else 0
         gmp_pct = (gmp / issue_price) * 100 if issue_price > 0 else 0
 
         if qib is None:
@@ -323,8 +324,8 @@ class IPOAnalyzer:
             score += 5
 
         # 2. GMP Trend (25%)
-        issue_price = matched["issue_price"] or 100
-        gmp = matched["gmp"] or 0
+        issue_price = matched.get("issue_price") or 100
+        gmp = matched.get("gmp") if matched.get("gmp") is not None else 0
         gmp_pct = (gmp / issue_price) * 100 if issue_price > 0 else 0
         if gmp_pct > 50:
             score += 25
@@ -379,7 +380,7 @@ class IPOAnalyzer:
                 "drivers": [
                     f"GMP Premium currently at +{round(gmp_pct, 1)}% over issue price.",
                     f"Promoter holding stands at {promoter}%.",
-                    f"Sector average P/E is {sector_pe}x (Company: {pe_ratio if pe_ratio else 'N/A'})."
+                    f"Sector average P/E is {sector_pe}x (Company: {pe_ratio if pe_ratio is not None else 'N/A'})."
                 ]
             }
         }

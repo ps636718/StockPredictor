@@ -1332,9 +1332,12 @@ async function loadSentiment(ticker) {
     if (!res.ok) return;
     const data = await res.json();
     const badge = document.getElementById('stock-sentiment-badge');
-    if (badge && data.sentiment) {
-      badge.textContent = data.sentiment;
-      badge.className = `sentiment-badge ${data.sentiment.toLowerCase()}`;
+    const sentiment = data.sentiment || data.label;
+    if (badge && sentiment) {
+      badge.textContent = sentiment;
+      const lower = sentiment.toLowerCase();
+      const badgeClass = lower.includes('bullish') ? 'bullish' : lower.includes('bearish') ? 'bearish' : 'neutral';
+      badge.className = `sentiment-badge ${badgeClass}`;
     }
   } catch(err) {
     console.warn('Sentiment error', err);
@@ -1348,9 +1351,10 @@ async function loadMarketMood() {
     const data = await res.json();
     const moodEl = document.getElementById('mood-text');
     const emojiEl = document.getElementById('mood-emoji');
-    if (moodEl && data.mood) {
-      moodEl.textContent = data.mood;
-      emojiEl.textContent = data.emoji || '📈';
+    const mood = data.mood || data.label;
+    if (moodEl && mood) {
+      moodEl.textContent = mood;
+      if (emojiEl) emojiEl.textContent = data.emoji || '📈';
     }
   } catch(err) {
     console.warn('Market mood error', err);
@@ -1473,14 +1477,28 @@ async function loadSystemStatus() {
     if (!res.ok) return;
     const data = await res.json();
     handleDemoMode(data);
-    
-    document.getElementById('status-xgb-text').textContent = data.xgboost || 'Online';
-    document.getElementById('status-lstm-text').textContent = data.lstm || 'Online';
-    document.getElementById('status-data-text').textContent = data.data_source || 'Live';
-    document.getElementById('status-timestamp').textContent = data.last_update || new Date().toLocaleTimeString();
-    
-    if(data.xgboost !== 'Online') document.getElementById('status-xgb').classList.remove('online');
-    if(data.lstm !== 'Online') document.getElementById('status-lstm').classList.remove('online');
+
+    const xgbStatus = data.engines?.xgboost?.status || data.xgboost || 'online';
+    const lstmStatus = data.engines?.lstm?.status || data.lstm || 'online';
+    const isXgbOnline = String(xgbStatus).toLowerCase() === 'online';
+    const isLstmOnline = String(lstmStatus).toLowerCase() === 'online';
+
+    const xgbText = document.getElementById('status-xgb-text');
+    const lstmText = document.getElementById('status-lstm-text');
+    const dataText = document.getElementById('status-data-text');
+    const timestampEl = document.getElementById('status-timestamp');
+    const statusXgbEl = document.getElementById('status-xgb');
+    const statusLstmEl = document.getElementById('status-lstm');
+    const statusDataEl = document.getElementById('status-data');
+
+    if (xgbText) xgbText.textContent = isXgbOnline ? 'Online' : 'Offline';
+    if (lstmText) lstmText.textContent = isLstmOnline ? 'Online' : 'Offline';
+    if (dataText) dataText.textContent = data.data_source === 'demo' ? 'Demo' : 'Live';
+    if (timestampEl) timestampEl.textContent = data.last_update || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+    if (statusXgbEl) statusXgbEl.classList.toggle('online', isXgbOnline);
+    if (statusLstmEl) statusLstmEl.classList.toggle('online', isLstmOnline);
+    if (statusDataEl) statusDataEl.classList.toggle('online', data.data_source !== 'demo');
   } catch (err) {
     console.warn('Status error', err);
   }
