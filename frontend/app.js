@@ -491,8 +491,8 @@ function renderMainChart() {
   const volumes = records.map(r => r.volume);
 
   const isBullish = closePrices[closePrices.length - 1] >= closePrices[0];
-  const primaryColor = isBullish ? '#10b981' : '#ef4444';
-  const primaryGradient = isBullish ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)';
+  const primaryColor = isBullish ? '#2DD4BF' : '#FF5C77';
+  const primaryGradient = isBullish ? 'rgba(45, 212, 191, 0.16)' : 'rgba(255, 92, 119, 0.16)';
 
   const datasets = [
     {
@@ -510,13 +510,13 @@ function renderMainChart() {
     }
   ];
 
-  // Overlay SMA 20
+  // Overlay SMA 20 (Holst Aqua)
   if (state.overlays.sma20) {
     datasets.push({
       label: 'SMA 20',
       data: records.map(r => r.sma_20),
-      borderColor: '#38bdf8',
-      borderWidth: 1.2,
+      borderColor: '#4FB8B4',
+      borderWidth: 1.3,
       borderDash: [4, 4],
       fill: false,
       tension: 0.2,
@@ -525,13 +525,13 @@ function renderMainChart() {
     });
   }
 
-  // Overlay SMA 50
+  // Overlay SMA 50 (Warm Amber)
   if (state.overlays.sma50) {
     datasets.push({
       label: 'SMA 50',
       data: records.map(r => r.sma_50),
-      borderColor: '#f59e0b',
-      borderWidth: 1.2,
+      borderColor: '#FBBF24',
+      borderWidth: 1.3,
       fill: false,
       tension: 0.2,
       pointRadius: 0,
@@ -539,13 +539,13 @@ function renderMainChart() {
     });
   }
 
-  // Overlay Bollinger Bands
+  // Overlay Bollinger Bands (Holst Petrol/Teal)
   if (state.overlays.bb) {
     datasets.push(
       {
         label: 'BB Upper',
         data: records.map(r => r.bb_upper),
-        borderColor: 'rgba(139, 92, 246, 0.5)',
+        borderColor: 'rgba(29, 139, 148, 0.6)',
         borderWidth: 1,
         fill: false,
         pointRadius: 0,
@@ -554,10 +554,10 @@ function renderMainChart() {
       {
         label: 'BB Lower',
         data: records.map(r => r.bb_lower),
-        borderColor: 'rgba(139, 92, 246, 0.5)',
+        borderColor: 'rgba(29, 139, 148, 0.6)',
         borderWidth: 1,
         fill: '-1',
-        backgroundColor: 'rgba(139, 92, 246, 0.05)',
+        backgroundColor: 'rgba(29, 139, 148, 0.08)',
         pointRadius: 0,
         yAxisID: 'y'
       }
@@ -585,16 +585,16 @@ function renderMainChart() {
           position: 'top',
           align: 'end',
           labels: {
-            color: '#94a3b8',
+            color: '#98D8D0',
             font: { size: 11, family: 'JetBrains Mono' },
             boxWidth: 12
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          titleColor: '#f8fafc',
-          bodyColor: '#cbd5e1',
-          borderColor: 'rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'rgba(4, 34, 43, 0.95)',
+          titleColor: '#E2F4F0',
+          bodyColor: '#98D8D0',
+          borderColor: 'rgba(79, 184, 180, 0.3)',
           borderWidth: 1,
           padding: 10,
           displayColors: true,
@@ -605,18 +605,18 @@ function renderMainChart() {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255, 255, 255, 0.03)' },
+          grid: { color: 'rgba(226, 244, 240, 0.04)' },
           ticks: {
-            color: '#64748b',
+            color: '#7faea9',
             maxTicksLimit: 8,
             font: { size: 10, family: 'JetBrains Mono' }
           }
         },
         y: {
           position: 'right',
-          grid: { color: 'rgba(255, 255, 255, 0.04)' },
+          grid: { color: 'rgba(226, 244, 240, 0.04)' },
           ticks: {
-            color: '#94a3b8',
+            color: '#98D8D0',
             font: { size: 11, family: 'JetBrains Mono' },
             callback: (v) => formatNumber(v)
           }
@@ -650,7 +650,7 @@ function renderSubCharts() {
         labels,
         datasets: [{
           data: records.map(r => r.rsi),
-          borderColor: '#a855f7',
+          borderColor: '#4FB8B4',
           borderWidth: 1.5,
           fill: false,
           pointRadius: 0,
@@ -667,10 +667,10 @@ function renderSubCharts() {
             min: 15,
             max: 85,
             position: 'right',
-            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+            grid: { color: 'rgba(226, 244, 240, 0.04)' },
             ticks: {
               stepSize: 30,
-              color: '#64748b',
+              color: '#7faea9',
               font: { size: 9, family: 'JetBrains Mono' }
             }
           }
@@ -700,8 +700,8 @@ function renderSubCharts() {
             type: 'line',
             label: 'MACD Line',
             data: records.map(r => r.macd_line),
-            borderColor: '#06b6d4',
-            borderWidth: 1.2,
+            borderColor: '#4FB8B4',
+            borderWidth: 1.3,
             pointRadius: 0,
             yAxisID: 'y'
           },
@@ -709,8 +709,8 @@ function renderSubCharts() {
             type: 'line',
             label: 'Signal',
             data: records.map(r => r.macd_signal),
-            borderColor: '#f43f5e',
-            borderWidth: 1.2,
+            borderColor: '#FF5C77',
+            borderWidth: 1.3,
             pointRadius: 0,
             yAxisID: 'y'
           },
@@ -718,7 +718,7 @@ function renderSubCharts() {
             type: 'bar',
             label: 'Histogram',
             data: records.map(r => r.macd_hist),
-            backgroundColor: records.map(r => (r.macd_hist >= 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)')),
+            backgroundColor: records.map(r => (r.macd_hist >= 0 ? 'rgba(45, 212, 191, 0.75)' : 'rgba(255, 92, 119, 0.75)')),
             yAxisID: 'y'
           }
         ]
@@ -731,9 +731,9 @@ function renderSubCharts() {
           x: { display: false },
           y: {
             position: 'right',
-            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+            grid: { color: 'rgba(226, 244, 240, 0.04)' },
             ticks: {
-              color: '#64748b',
+              color: '#7faea9',
               font: { size: 9, family: 'JetBrains Mono' }
             }
           }
@@ -801,12 +801,12 @@ function renderForecastChart() {
     {
       label: 'Historical Close',
       data: historicalSeries,
-      borderColor: '#94a3b8',
+      borderColor: '#7faea9',
       borderWidth: 2,
       fill: false,
       tension: 0.1,
       pointRadius: 2,
-      pointBackgroundColor: '#94a3b8'
+      pointBackgroundColor: '#7faea9'
     }
   ];
 
@@ -814,12 +814,12 @@ function renderForecastChart() {
     datasets.push({
       label: 'XGBoost Multi-Horizon',
       data: xgbSeries,
-      borderColor: '#06b6d4',
+      borderColor: '#4FB8B4',
       borderWidth: 2.5,
       backgroundColor: 'transparent',
       tension: 0.15,
       pointRadius: 4,
-      pointBackgroundColor: '#06b6d4',
+      pointBackgroundColor: '#4FB8B4',
       pointHoverRadius: 6
     });
   }
@@ -828,13 +828,13 @@ function renderForecastChart() {
     datasets.push({
       label: 'LSTM Neural Model',
       data: lstmSeries,
-      borderColor: '#8b5cf6',
+      borderColor: '#1D8B94',
       borderWidth: 2,
       borderDash: [5, 4],
       backgroundColor: 'transparent',
       tension: 0.2,
       pointRadius: 3,
-      pointBackgroundColor: '#8b5cf6'
+      pointBackgroundColor: '#1D8B94'
     });
   }
 
@@ -843,7 +843,7 @@ function renderForecastChart() {
       {
         label: 'Upper Confidence (95%)',
         data: upperBounds,
-        borderColor: 'rgba(6, 182, 212, 0.25)',
+        borderColor: 'rgba(79, 184, 180, 0.3)',
         borderWidth: 1,
         fill: false,
         pointRadius: 0
@@ -851,10 +851,10 @@ function renderForecastChart() {
       {
         label: 'Confidence Band',
         data: lowerBounds,
-        borderColor: 'rgba(6, 182, 212, 0.25)',
+        borderColor: 'rgba(79, 184, 180, 0.3)',
         borderWidth: 1,
         fill: '-1',
-        backgroundColor: 'rgba(6, 182, 212, 0.08)',
+        backgroundColor: 'rgba(79, 184, 180, 0.08)',
         pointRadius: 0
       }
     );
@@ -877,11 +877,13 @@ function renderForecastChart() {
           display: true,
           position: 'top',
           align: 'end',
-          labels: { color: '#94a3b8', font: { size: 11, family: 'JetBrains Mono' } }
+          labels: { color: '#98D8D0', font: { size: 11, family: 'JetBrains Mono' } }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          borderColor: 'rgba(255, 255, 255, 0.1)',
+          backgroundColor: 'rgba(4, 34, 43, 0.95)',
+          titleColor: '#E2F4F0',
+          bodyColor: '#98D8D0',
+          borderColor: 'rgba(79, 184, 180, 0.3)',
           borderWidth: 1,
           callbacks: {
             label: (ctx) => `${ctx.dataset.label}: ${ctx.raw ? formatNumber(ctx.raw) : 'N/A'}`
@@ -890,14 +892,14 @@ function renderForecastChart() {
       },
       scales: {
         x: {
-          grid: { color: 'rgba(255, 255, 255, 0.04)' },
-          ticks: { color: '#94a3b8', font: { size: 10, family: 'JetBrains Mono' } }
+          grid: { color: 'rgba(226, 244, 240, 0.04)' },
+          ticks: { color: '#7faea9', font: { size: 10, family: 'JetBrains Mono' } }
         },
         y: {
           position: 'right',
-          grid: { color: 'rgba(255, 255, 255, 0.04)' },
+          grid: { color: 'rgba(226, 244, 240, 0.04)' },
           ticks: {
-            color: '#94a3b8',
+            color: '#98D8D0',
             font: { size: 11, family: 'JetBrains Mono' },
             callback: (v) => formatNumber(v)
           }
@@ -972,24 +974,24 @@ function renderBenchmarkCharts() {
           {
             label: 'XGBoost',
             data: xgb.r2,
-            backgroundColor: 'rgba(6, 182, 212, 0.85)',
-            borderColor: '#06b6d4',
+            backgroundColor: 'rgba(79, 184, 180, 0.85)',
+            borderColor: '#4FB8B4',
             borderWidth: 1,
             borderRadius: 4
           },
           {
             label: 'LSTM',
             data: lstm.r2,
-            backgroundColor: 'rgba(139, 92, 246, 0.85)',
-            borderColor: '#8b5cf6',
+            backgroundColor: 'rgba(29, 139, 148, 0.85)',
+            borderColor: '#1D8B94',
             borderWidth: 1,
             borderRadius: 4
           },
           {
             label: 'Naive Baseline',
             data: naive.r2,
-            backgroundColor: 'rgba(100, 116, 139, 0.5)',
-            borderColor: '#64748b',
+            backgroundColor: 'rgba(16, 96, 111, 0.55)',
+            borderColor: '#10606F',
             borderWidth: 1,
             borderRadius: 4
           }
@@ -1000,11 +1002,11 @@ function renderBenchmarkCharts() {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            labels: { color: '#94a3b8', font: { size: 11, family: 'JetBrains Mono' } }
+            labels: { color: '#98D8D0', font: { size: 11, family: 'JetBrains Mono' } }
           },
           tooltip: {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            borderColor: 'rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'rgba(4, 34, 43, 0.95)',
+            borderColor: 'rgba(79, 184, 180, 0.3)',
             borderWidth: 1,
             callbacks: {
               label: (ctx) => `${ctx.dataset.label}: R² = ${ctx.raw ? Number(ctx.raw).toFixed(4) : 'N/A'}`
@@ -1012,12 +1014,12 @@ function renderBenchmarkCharts() {
           }
         },
         scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10, family: 'JetBrains Mono' } }, grid: { display: false } },
+          x: { ticks: { color: '#7faea9', font: { size: 10, family: 'JetBrains Mono' } }, grid: { display: false } },
           y: {
             min: 0.85,
             max: 1.0,
-            ticks: { color: '#94a3b8', font: { size: 10, family: 'JetBrains Mono' } },
-            grid: { color: 'rgba(255, 255, 255, 0.04)' }
+            ticks: { color: '#7faea9', font: { size: 10, family: 'JetBrains Mono' } },
+            grid: { color: 'rgba(226, 244, 240, 0.04)' }
           }
         }
       }
@@ -1037,24 +1039,24 @@ function renderBenchmarkCharts() {
           {
             label: 'XGBoost (Lowest Error)',
             data: xgb.mae,
-            backgroundColor: 'rgba(16, 185, 129, 0.85)',
-            borderColor: '#10b981',
+            backgroundColor: 'rgba(45, 212, 191, 0.85)',
+            borderColor: '#2DD4BF',
             borderWidth: 1,
             borderRadius: 4
           },
           {
             label: 'LSTM',
             data: lstm.mae,
-            backgroundColor: 'rgba(139, 92, 246, 0.85)',
-            borderColor: '#8b5cf6',
+            backgroundColor: 'rgba(29, 139, 148, 0.85)',
+            borderColor: '#1D8B94',
             borderWidth: 1,
             borderRadius: 4
           },
           {
             label: 'Naive Baseline',
             data: naive.mae,
-            backgroundColor: 'rgba(239, 68, 68, 0.5)',
-            borderColor: '#ef4444',
+            backgroundColor: 'rgba(255, 92, 119, 0.55)',
+            borderColor: '#FF5C77',
             borderWidth: 1,
             borderRadius: 4
           }
@@ -1065,11 +1067,11 @@ function renderBenchmarkCharts() {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            labels: { color: '#94a3b8', font: { size: 11, family: 'JetBrains Mono' } }
+            labels: { color: '#98D8D0', font: { size: 11, family: 'JetBrains Mono' } }
           },
           tooltip: {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            borderColor: 'rgba(255, 255, 255, 0.1)',
+            backgroundColor: 'rgba(4, 34, 43, 0.95)',
+            borderColor: 'rgba(79, 184, 180, 0.3)',
             borderWidth: 1,
             callbacks: {
               label: (ctx) => `${ctx.dataset.label}: MAE = ${ctx.raw ? Number(ctx.raw).toFixed(2) : 'N/A'}`
@@ -1077,10 +1079,10 @@ function renderBenchmarkCharts() {
           }
         },
         scales: {
-          x: { ticks: { color: '#94a3b8', font: { size: 10, family: 'JetBrains Mono' } }, grid: { display: false } },
+          x: { ticks: { color: '#7faea9', font: { size: 10, family: 'JetBrains Mono' } }, grid: { display: false } },
           y: {
-            ticks: { color: '#94a3b8', font: { size: 10, family: 'JetBrains Mono' } },
-            grid: { color: 'rgba(255, 255, 255, 0.04)' }
+            ticks: { color: '#7faea9', font: { size: 10, family: 'JetBrains Mono' } },
+            grid: { color: 'rgba(226, 244, 240, 0.04)' }
           }
         }
       }
@@ -1265,8 +1267,8 @@ async function loadIPOHistory() {
     // Map directly from data.history without dummy fallbacks
     const labels = historyList.map(h => h.name || 'N/A');
     const gains = historyList.map(h => (h.gain_pct !== null && h.gain_pct !== undefined) ? h.gain_pct : 0);
-    const backgroundColors = gains.map(g => g >= 0 ? 'rgba(0, 200, 83, 0.75)' : 'rgba(255, 59, 48, 0.75)');
-    const borderColors = gains.map(g => g >= 0 ? '#00C853' : '#FF3B30');
+    const backgroundColors = gains.map(g => g >= 0 ? 'rgba(45, 212, 191, 0.75)' : 'rgba(255, 92, 119, 0.75)');
+    const borderColors = gains.map(g => g >= 0 ? '#2DD4BF' : '#FF5C77');
 
     ipoHistoryChart = new Chart(ctx, {
       type: 'bar',
@@ -1287,14 +1289,14 @@ async function loadIPOHistory() {
         plugins: {
           legend: { 
             display: true,
-            labels: { color: '#8B949E', font: { size: 11, family: 'JetBrains Mono' } }
+            labels: { color: '#98D8D0', font: { size: 11, family: 'JetBrains Mono' } }
           },
           tooltip: {
-            backgroundColor: '#161B22',
-            borderColor: '#2A2F3A',
+            backgroundColor: 'rgba(4, 34, 43, 0.95)',
+            borderColor: 'rgba(79, 184, 180, 0.3)',
             borderWidth: 1,
-            titleColor: '#E6EDF3',
-            bodyColor: '#E6EDF3',
+            titleColor: '#E2F4F0',
+            bodyColor: '#98D8D0',
             callbacks: {
               label: (ctx) => `Listing Day Gain: ${ctx.raw >= 0 ? '+' : ''}${ctx.raw}%`
             }
@@ -1302,16 +1304,16 @@ async function loadIPOHistory() {
         },
         scales: {
           y: { 
-            grid: { color: 'rgba(42, 47, 58, 0.5)' }, 
+            grid: { color: 'rgba(226, 244, 240, 0.04)' }, 
             ticks: { 
-              color: '#8B949E',
+              color: '#7faea9',
               font: { size: 10, family: 'JetBrains Mono' },
               callback: (v) => `${v}%`
             } 
           },
           x: { 
             ticks: { 
-              color: '#8B949E',
+              color: '#7faea9',
               maxRotation: 45,
               minRotation: 25,
               font: { size: 9, family: 'JetBrains Mono' }
